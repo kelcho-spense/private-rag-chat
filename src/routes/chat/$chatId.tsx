@@ -1,3 +1,4 @@
+import "../../index.css";
 import {
 	ErrorComponent,
 	type ErrorComponentProps,
@@ -7,6 +8,7 @@ import {
 	type TChatHistoryItem,
 	getChatHistoryItem,
 } from "../../store/chat.store";
+import { Messages } from "./index";
 
 export const Route = createFileRoute("/chat/$chatId")({
 	loader: async ({ params: { chatId } }) => getChatHistoryItem(Number(chatId)),
@@ -14,7 +16,7 @@ export const Route = createFileRoute("/chat/$chatId")({
 		return <p>Post not found</p>;
 	},
 	component: ChatComponent,
-  errorComponent: ChatErrorComponent,
+	errorComponent: ChatErrorComponent,
 });
 
 export function ChatErrorComponent({ error }: ErrorComponentProps) {
@@ -24,5 +26,9 @@ export function ChatErrorComponent({ error }: ErrorComponentProps) {
 function ChatComponent() {
 	const chatItem = Route.useLoaderData();
 
-	return <div>{JSON.stringify(chatItem)}</div>;
+	return (
+		<div className="relative flex h-[calc(100vh-32px)] bg-gray-900">
+			<Messages messages={chatItem.chatData} />
+		</div>
+	);
 }

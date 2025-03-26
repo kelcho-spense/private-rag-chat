@@ -36,7 +36,7 @@ function ChattingLayout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-function Messages({ messages }: { messages: Array<UIMessage> }) {
+export function Messages({ messages }: { messages: Array<UIMessage> }) {
 	const messagesContainerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
